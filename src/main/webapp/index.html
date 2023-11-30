@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"> <!-- Modification ici pour utiliser UTF-8 -->
+<title>Liste des employés</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+	
+ <div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+      <div class="bg-white shadow p-4 rounded">
+        <h1 class="display-6 text-dark text-center">Liste des employés</h1>
+        <hr class="bg-dark text-dark">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let personne of personnes; let i = index">
+              <th>{{ i+1 }}</th>
+              <td>{{ personne.firstName | uppercase }}</td>
+              <td>{{ personne.name }}</td>
+              <td>{{ personne.email }}</td>
+              <td>
+                <button class="btn btn-primary me-2" type="button"
+                  [routerLink]="['/updatepersonne']"
+                  [queryParams]="{ index: i, id: personne.id, firstName: personne.firstName, name: personne.name, email: personne.email }"
+                  >Modifier
+                </button>
+                <button class="btn btn-danger" type="button" (click) = "onDeletePerson(personne.id,personne.firstName ,personne.name)">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
