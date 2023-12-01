@@ -24,7 +24,7 @@ public class Employee {
 		this.lastName = lastName;
 		this.email = email;	}
 
-	public long getIdEmployee() {
+	public int getIdEmployee() {
 		return idEmployee;
 	}
 

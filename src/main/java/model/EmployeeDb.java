@@ -73,18 +73,16 @@ public class EmployeeDb {
     } 
     // Méthode pour mettre à jour un employé
     public int updateEmployee(Employee employee) throws SQLException {
-//	    System.out.println("update id employee : "+ employee.getIdEmployee());
-//	    System.out.println("update firstName employee : "+ employee.getFirstName());
-
 	    String sqlUpdate = "UPDATE employee SET firstName = ?, lastName = ?, email = ? WHERE idEmployee = ?";
-        try (Connection conx = this.init();
-             PreparedStatement pstm = conx.prepareStatement(sqlUpdate)) {
-    	    System.out.println("update id employee : "+ employee.getIdEmployee());
 
-            pstm.setLong(1, employee.getIdEmployee());
-        	pstm.setString(2, employee.getFirstName());
-            pstm.setString(3, employee.getLastName());
-            pstm.setString(4, employee.getEmail());
+        try (Connection conx = this.init();
+        		PreparedStatement pstm = conx.prepareStatement(sqlUpdate)) {
+        	
+    	    pstm.setString(1, employee.getFirstName());
+    	    pstm.setString(2, employee.getLastName());
+    	    pstm.setString(3, employee.getEmail());
+    	    pstm.setInt(4, employee.getIdEmployee());
+            
     	    int rowsAffected = pstm.executeUpdate();
 
             return rowsAffected;
@@ -92,18 +90,18 @@ public class EmployeeDb {
     }
     
     // Méthode pour récupérer un employé par son ID
-    public Employee getEmployeeById(Long id) throws SQLException {
+    public Employee getEmployeeById(Integer idEmployee) throws SQLException {
         String sqlQuery = "SELECT * FROM employee WHERE idEmployee = ?";
         try (Connection conx = this.init();
              PreparedStatement pstm = conx.prepareStatement(sqlQuery)) {
 
-            pstm.setLong(1, id);
+            pstm.setInt(1, idEmployee);
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
                     return new Employee(rs.getInt("idEmployee"), rs.getString("firstName"), 
                                         rs.getString("lastName"), rs.getString("email"));
                 } else {
-                    return null; // Ou gérer l'absence d'employé
+                    return null;
                 }
             }
         }

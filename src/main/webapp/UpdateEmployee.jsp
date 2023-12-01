@@ -10,9 +10,9 @@
 <body>
     <%@include file="NavBar.jsp" %>
         <%
-        String employeeId = request.getParameter("id");
+        String idEmployee = request.getParameter("id");
         EmployeeDb employeeDb = new EmployeeDb();
-        Employee employee = employeeDb.getEmployeeById(Long.parseLong(employeeId));
+        Employee employee = employeeDb.getEmployeeById(Integer.parseInt(idEmployee));
     	%>
 
     <div class="row m-5">
@@ -21,7 +21,7 @@
                 <h1 class="display-6 text-dark text-center">Mettre à jour un employé</h1>
                 <hr class="bg-dark mb-5" />
                 <form action="UpdateEmployeeServlet" method="post">
-                    <input type="hidden" name="id" value="<%= employee.getIdEmployee() %>" />
+                    <input type="hidden" name="idEmployee" value="<%= employee.getIdEmployee() %>" />
                     <div class="form-group mb-3">
                         <label for="firstName">Prénom</label>
                         <input type="text" id="firstName" name="firstName" value="<%= employee.getFirstName() %>" class="form-control" required />

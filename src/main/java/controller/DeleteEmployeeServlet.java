@@ -24,8 +24,8 @@ public class DeleteEmployeeServlet extends HttpServlet {
             employeeDb.deleteEmployee(id);
             response.sendRedirect("EmployeeList.jsp");
         } catch (SQLException e) {
-            e.printStackTrace(); // Gérer l'exception de manière appropriée
-            // Vous pouvez rediriger vers une page d'erreur ou afficher un message
+            e.printStackTrace();
+            response.sendRedirect("EmployeeList.jsp");
         }
     }
     

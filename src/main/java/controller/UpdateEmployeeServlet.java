@@ -3,14 +3,12 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import jakarta.servlet.ServletException;
-//import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Employee;
 import model.EmployeeDb;
 
-//@WebServlet("/UpdateEmployeeServlet")
 public class UpdateEmployeeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -26,15 +24,14 @@ public class UpdateEmployeeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         // Récupération des paramètres de la requête
-        int id = Integer.parseInt(request.getParameter("id"));
+        int idEmployee = Integer.parseInt(request.getParameter("idEmployee"));
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
 
         // Mise à jour de l'objet Employee
-        Employee employee = new Employee(id, firstName, lastName, email);
+        Employee employee = new Employee(idEmployee, firstName, lastName, email);
         EmployeeDb db = new EmployeeDb();
-//	    System.out.println("update id employee : "+ employee.getIdEmployee());
 
         try {
             int result = db.updateEmployee(employee); // Supposons que cette méthode existe dans EmployeeDb

@@ -12,6 +12,12 @@
 	<meta charset="UTF-8">
 	<title>Liste des employés</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	
+	<script>
+		 function confirmDelete() {
+	         return confirm("Etes-vous sûr de vouloir supprimer cet employé ?");
+	     }
+    </script>
 	</head>
 	<body>
 		<%@include file="NavBar.jsp" %>
@@ -47,7 +53,11 @@
 		                        <td><%= employee.getEmail() %></td>
 		                        <td>
 		                            <a href="UpdateEmployee.jsp?id=<%= employee.getIdEmployee() %>" class="btn btn-primary">Modifier</a>
-		                            <a href="DeleteEmployeeServlet?id=<%= employee.getIdEmployee() %>" class="btn btn-danger">Supprimer</a>
+		                            <a href="DeleteEmployeeServlet?id=<%= employee.getIdEmployee() %>" 
+			                           class="btn btn-danger" 
+			                           onclick="return confirmDelete();">
+			                           Supprimer
+			                        </a>
 		                        </td>
 		                    </tr>
 		            <%  }
