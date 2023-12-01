@@ -67,10 +67,48 @@ public class EmployeeDb {
     	String sqlDelete = "DELETE FROM employee WHERE idEmployee = ?";
         try (Connection conx = this.init();
              PreparedStatement pstm = conx.prepareStatement(sqlDelete)) {
-
             pstm.setInt(1, id);
             return pstm.executeUpdate();
         }
+    } 
+    // Méthode pour mettre à jour un employé
+    public int updateEmployee(Employee employee) throws SQLException {
+//	    System.out.println("update id employee : "+ employee.getIdEmployee());
+//	    System.out.println("update firstName employee : "+ employee.getFirstName());
+
+	    String sqlUpdate = "UPDATE employee SET firstName = ?, lastName = ?, email = ? WHERE idEmployee = ?";
+        try (Connection conx = this.init();
+             PreparedStatement pstm = conx.prepareStatement(sqlUpdate)) {
+    	    System.out.println("update id employee : "+ employee.getIdEmployee());
+
+            pstm.setLong(1, employee.getIdEmployee());
+        	pstm.setString(2, employee.getFirstName());
+            pstm.setString(3, employee.getLastName());
+            pstm.setString(4, employee.getEmail());
+    	    int rowsAffected = pstm.executeUpdate();
+
+            return rowsAffected;
+        }
     }
+    
+    // Méthode pour récupérer un employé par son ID
+    public Employee getEmployeeById(Long id) throws SQLException {
+        String sqlQuery = "SELECT * FROM employee WHERE idEmployee = ?";
+        try (Connection conx = this.init();
+             PreparedStatement pstm = conx.prepareStatement(sqlQuery)) {
+
+            pstm.setLong(1, id);
+            try (ResultSet rs = pstm.executeQuery()) {
+                if (rs.next()) {
+                    return new Employee(rs.getInt("idEmployee"), rs.getString("firstName"), 
+                                        rs.getString("lastName"), rs.getString("email"));
+                } else {
+                    return null; // Ou gérer l'absence d'employé
+                }
+            }
+        }
+    }
+    
+
 
 }

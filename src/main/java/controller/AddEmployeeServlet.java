@@ -35,6 +35,7 @@ public class AddEmployeeServlet extends HttpServlet {
 
 	    // Création de l'objet Employee
 	    Employee employee = new Employee(firstName, lastName, email);
+	    
 	    // Instanciation de EmployeeDb et ajout de l'employé
 	    EmployeeDb db = new EmployeeDb();
 	    try {	    	
